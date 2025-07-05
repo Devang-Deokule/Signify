@@ -5,7 +5,7 @@ import os
 # Set constants
 IMG_SIZE = 64
 BATCH_SIZE = 32
-EPOCHS = 1
+EPOCHS = 10
 DATA_DIR = r"C:\Users\Devang\OneDrive\Desktop\sign-language-web\backend\dataset\asl_alphabet_train\asl_alphabet_train"
 # Create data generators
 datagen = ImageDataGenerator(rescale=1./255, validation_split=0.2)
