@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learn ASL - Signify</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fc;
+      color: #2e2e2e;
+    }
+
+    header {
+      background-color: #1f2a48;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    header .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 2rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      text-align: center;
+      padding: 1rem;
+      transition: transform 0.2s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 0.5rem;
+    }
+
+    .card span {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #1f2a48;
+    }
+
+    .tooltip {
+      visibility: hidden;
+      width: auto;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 4px 8px;
+      position: absolute;
+      z-index: 1;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.85rem;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Signify</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="detect.html">Start Detection</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Learn American Sign Language (A-Z)</h1>
+    <div class="grid" id="aslGrid"></div>
+  </main>
+
+  <script>
+    const exampleWords = {
+      A: "Apple",
+      B: "Ball",
+      C: "Cat",
+      D: "Dog",
+      E: "Elephant",
+      F: "Fish",
+      G: "Grapes",
+      H: "Hat",
+      I: "Ice",
+      J: "Juice",
+      K: "Kite",
+      L: "Lion",
+      M: "Monkey",
+      N: "Nest",
+      O: "Orange",
+      P: "Pen",
+      Q: "Queen",
+      R: "Rabbit",
+      S: "Sun",
+      T: "Tree",
+      U: "Umbrella",
+      V: "Violin",
+      W: "Whale",
+      X: "Xylophone",
+      Y: "Yogurt",
+      Z: "Zebra"
+    };
+
+    const container = document.getElementById('aslGrid');
+
+    for (let i = 65; i <= 90; i++) {
+      const letter = String.fromCharCode(i);
+      const word = exampleWords[letter] || "";
+
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <img src='/assests/asl/${letter}.jpg' alt="Sign ${letter}">
+        <span>${letter}</span>
+        <div class="tooltip">${word}</div>
+      `;
+      card.addEventListener("click", () => {
+        const speech = new SpeechSynthesisUtterance(letter);
+        window.speechSynthesis.speak(speech);
+      });
+
+      container.appendChild(card);
+    }
+  </script>
+
+</body>
+</html>
